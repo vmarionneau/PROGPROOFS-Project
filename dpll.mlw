@@ -1,0 +1,97 @@
+
+(* Standard library imports *)
+
+use int.Int
+use int.Abs
+use array.Array
+
+(* Helper function for clause swapping *)
+
+use array.ArrayPermut
+
+let swap (a:array 'a) (i:int) (j:int) : unit
+  requires { 0 <= i < length a /\ 0 <= j < length a }
+  writes   { a }
+  ensures  { exchange (old a) a i j }
+= let v = a[i] in
+  a[i] <- a[j];
+  a[j] <- v
+
+(* Simple DPLL *)
+
+type lit = int (* 1-nv .. nv-1 *)
+type cls = (lit, lit, lit)
+
+predicate is_lit (nv: int) (l: lit) =
+  -nv < l < nv
+
+predicate is_cls (nv: int) (c: cls) =
+  let l1, l2, l3 = c in
+  is_lit nv l1 /\ is_lit nv l2 /\ is_lit nv l3
+
+(* An assignment stores for every Boolean variable `i`
+   its "truth value", encoded as an integer, which is
+   either equal to `i` or to `-i`. In this encoding,
+   a non-negative truth value means that the variable
+   is false, and a negative truth value means that the
+   variable is true. Consequently, the variable `0` is
+   always false. *)
+
+type assignment = array int
+
+predicate is_assignment (mm: assignment) (na: int) =
+  0 < na <= length mm /\ mm[0] = 0 /\
+  forall i. 0 <= i < na -> abs mm[i] = i
+
+(* A literal `l` is true in assignment `mm` if and only if
+   it has been assigned a truth value (`|l| < na`), and
+   `mm[abs l]` is different from `l`. If `l` is positive,
+   it is true only if `mm[l]` is negative, and if `l` is
+   negative, it is true only if `mm[l]` is positive.
+   If `l` is zero, `mm[l]` has to be zero, too, and
+   therefore `l` can only be false. *)
+
+predicate ok_lit (mm: assignment) (na: int) (l: lit) =
+  is_lit (length mm) l /\ 0 <= abs l < na <= length mm /\
+  mm[abs l] <> l
+
+predicate ok_cls (mm: assignment) (na: int) (c: cls) =
+  let l1, l2, l3 = c in
+  ok_lit mm na l1 \/ ok_lit mm na l2 \/ ok_lit mm na l3
+
+(* Function `scan` moves the clases which are true in
+   assignment `mm` outside of the active zone `cl[0..nc)`,
+   and returns the new number of active clases `mc` which
+   has to be smaller or equal than `nc`. It also returns
+   a boolean flag `b` which is set to `false`, when a false
+   clause is discovered (i.e., all three literals have been
+   assigned a false truth value), and therefore the current
+   assignment `mm` cannot possibly be extended to a model. *)
+
+let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool, mc: int)
+= absurd
+
+(* Function `dpll` checks the current state of the search using `scan`,
+   and after that, if the search can be continued, extends the current
+   assignment `mm`, by giving the first unassigned Boolean variable `na`
+   one or the other truth value, as per DPLL procedure. This function
+   returns `true` if `mm` has been extended to a model, and `false`
+   if `mm` cannot possibly be extended to a model. *)
+
+let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
+= absurd
+
+(* Function `sat` implements a simple 3SAT solver. If it returns `true`,
+   assignment `mm` contains a model of the clause set `cl`. If it returns
+   `false`, the clause set `cl` is unsatisfiable. The clauses in `cl` can
+   be reordered during the search. *)
+
+let sat (mm: assignment) (cl: array cls) : (sat: bool)
+  requires { 0 < length mm }
+  requires { forall i. 0 <= i < length cl -> is_cls (length mm) cl[i] }
+  ensures  { sat -> is_assignment mm (length mm) }
+  ensures  { sat -> forall i. 0 <= i < length cl -> ok_cls mm (length mm) cl[i] }
+  ensures  { not sat -> forall mc. is_assignment mc (length mm) ->
+    exists i. 0 <= i < length cl /\ not ok_cls mc (length mm) cl[i] }
+  ensures  { permut_all (old cl) cl }
+= dpll mm cl (length mm) 1 (length cl)

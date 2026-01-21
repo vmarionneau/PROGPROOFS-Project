@@ -1,0 +1,12 @@
+#!/bin/bash
+
+for f in sat/*.cnf; do
+    echo -n $f"..."
+    $1 $f | grep -q "^SAT" || (echo "FAILED!"; exit 1) || exit 1
+    echo "OK"
+done
+for f in unsat/*.cnf; do
+    echo -n $f"..."
+    $1 $f | grep -q "^UNSAT" || (echo "FAILED!"; exit 1) || exit 1
+    echo "OK"
+done
