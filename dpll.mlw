@@ -59,17 +59,175 @@ predicate ok_cls (mm: assignment) (na: int) (c: cls) =
   let l1, l2, l3 = c in
   ok_lit mm na l1 \/ ok_lit mm na l2 \/ ok_lit mm na l3
 
-(* Function `scan` moves the clases which are true in
+predicate nok_lit (mm: assignment) (na: int) (l: lit) =
+  is_lit (length mm) l /\ 0 <= abs l < na <= length mm /\
+  mm[abs l] = l
+
+predicate nok_cls (mm: assignment) (na: int) (c: cls) =
+  let l1, l2, l3 = c in
+  nok_lit mm na l1 /\ nok_lit mm na l2 /\ nok_lit mm na l3
+
+predicate def_lit (mm: assignment) (na: int) (l: lit) =
+  ok_lit mm na l \/ nok_lit mm na l
+
+predicate def_cls (mm: assignment) (na: int) (c: cls) =
+  ok_cls mm na c \/ nok_cls mm na c
+
+predicate full_def_cls (mm: assignment) (na: int) (c: cls) =
+  let l1, l2, l3 = c in
+  def_lit mm na l1 /\
+  def_lit mm na l2 /\
+  def_lit mm na l3
+
+predicate undef_cls (mm: assignment) (na: int) (c: cls) =
+    not (ok_cls mm na c) /\ not (nok_cls mm na c)
+
+predicate inactive_ok (mm: assignment) (na: int) (cl: array cls) (nc: int) =
+  forall i . nc <= i < length cl -> ok_cls mm na cl[i]
+
+predicate active_undef (mm: assignment) (na: int) (cl: array cls) (nc: int) =
+  forall i . 0 <= i < nc -> undef_cls mm na cl[i]
+
+predicate valid_lit (mm: assignment) (l : lit) =
+  abs l < length mm
+
+predicate valid_clause (mm: assignment) (c : cls) =
+  let l1, l2, l3 = c in
+  valid_lit mm l1 /\
+  valid_lit mm l2 /\
+  valid_lit mm l3
+
+predicate valid_clauses (mm: assignment) (cl: array cls) =
+  forall i . 0 <= i < length cl -> valid_clause mm cl[i]
+
+predicate valid_state (mm: assignment) (na: int) (cl: array cls) (nc: int) =
+  is_assignment mm na /\ inactive_ok mm na cl nc /\ valid_clauses mm cl /\ 0 <= nc <= length cl
+
+lemma valid_state_mono :
+  forall mm na cl nc . valid_state mm na cl nc -> na < length mm -> valid_state mm[na <- na] (na + 1) cl nc 
+
+lemma valid_state_mono' :
+  forall mm na cl nc . valid_state mm na cl nc -> na < length mm -> valid_state mm[na <- -na] (na + 1) cl nc 
+
+lemma valid_state_anti :
+  forall mm na cl nc mc . valid_state mm na cl mc -> mc <= nc <= length cl -> valid_state mm na cl nc 
+
+lemma not_ok_na_0 : forall mm l . not (ok_lit mm 0 l)
+
+lemma cls_expand : forall c:cls . exists l1:lit . exists l2:lit . exists l3:lit . c = (l1, l2, l3) 
+
+lemma not_ok_na_0_cls : forall mm c . not (ok_cls mm 0 c)
+
+lemma ok_cls_equiv : 
+  forall mm1 mm2 na c . length mm1 = length mm2 -> ok_cls mm1 na c -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> ok_cls mm2 na c
+
+lemma inactive_ok_equiv : 
+  forall mm1 mm2 na cl nc . length mm1 = length mm2 -> inactive_ok mm1 na cl nc -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> inactive_ok mm2 na cl nc
+
+lemma valid_state_equiv : 
+  forall mm1 mm2 na cl nc . length mm1 = length mm2 -> valid_state mm1 na cl nc -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> valid_state mm2 na cl nc
+
+lemma valid_state_equiv':
+  forall mm na cl1 cl2 nc . valid_state mm na cl1 nc -> length cl1 = length cl2 -> valid_clauses mm cl2 -> (forall i . nc <= i < length cl1 -> cl1[i] = cl2[i]) -> valid_state mm na cl2 nc 
+
+lemma valid_state_mono_equiv :
+  forall mm mm' na cl nc . valid_state mm na cl nc -> length mm = length mm' -> (forall i . 0 <= i < na -> mm[i] = mm'[i]) -> na < length mm -> valid_state mm'[na <- na] (na + 1) cl nc 
+
+
+let is_true (mm: assignment) (na: int) (l: lit): bool =
+   requires {is_assignment mm na}
+   ensures {result = true <-> ok_lit mm na l}
+    0 < abs l < na <= length mm && mm[abs l] = -l
+
+let is_false (mm: assignment) (na: int) (l: lit): bool =
+    requires {is_assignment mm na}
+    ensures {result = true <-> nok_lit mm na l}
+    abs l < na <= length mm && mm[abs l] = l
+
+let is_true_cls (mm : assignment) (na: int) (c : cls): bool =
+  requires {is_assignment mm na}
+  ensures {result = true <-> ok_cls mm na c}
+  let l1, l2, l3 = c in
+  is_true mm na l1 ||
+  is_true mm na l2 || 
+  is_true mm na l3
+  
+let is_false_cls (mm : assignment) (na: int) (c : cls): bool =
+  requires {is_assignment mm na}
+  ensures {result = true <-> nok_cls mm na c}
+  let l1, l2, l3 = c in
+  is_false mm na l1 &&
+  is_false mm na l2 && 
+  is_false mm na l3
+
+lemma assignment_na_def : forall mm na . is_assignment mm na -> na = length mm -> forall l . valid_lit mm l -> def_lit mm na l 
+
+lemma full_def_def : forall mm na c . full_def_cls mm na c -> def_cls mm na c
+
+lemma assignment_na_def_cls : forall mm na . is_assignment mm na -> na = length mm -> forall c . valid_clause mm c -> def_cls mm na c 
+
+lemma nok_not_ok : forall mm na c . is_assignment mm na -> nok_cls mm na c -> not (ok_cls mm na c)
+
+predicate extends (mm: array int) (na: int) (mm': array int) = 
+  is_assignment mm na /\
+  is_assignment mm' (length mm) /\
+  length mm = length mm' /\
+  (forall i . 0 <= i < na -> mm[i] = mm'[i])
+
+lemma extends_succ : forall mm na mm' . is_assignment mm na -> 
+                                        na < length mm ->
+                                        extends mm na mm' -> 
+                                        length mm = length mm' ->
+                                        extends (mm[na <- na]) (na + 1) mm' \/ extends (mm[na <- - na]) (na + 1) mm'
+
+(* Function `scan` moves the clauses which are true in
    assignment `mm` outside of the active zone `cl[0..nc)`,
-   and returns the new number of active clases `mc` which
+   and returns the new number of active clauses `mc` which
    has to be smaller or equal than `nc`. It also returns
    a boolean flag `b` which is set to `false`, when a false
    clause is discovered (i.e., all three literals have been
    assigned a false truth value), and therefore the current
    assignment `mm` cannot possibly be extended to a model. *)
 
-let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool, mc: int)
-= absurd
+let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool , mc: int)
+= requires {valid_state mm na cl nc}
+  ensures {valid_state mm na cl mc}
+  ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+  ensures {b = true -> active_undef mm na cl mc}
+  ensures {b = true -> 0 < mc -> na < length mm}
+  ensures {b = false -> forall mm' . extends (old(mm)) na mm' ->
+                        not (forall j . 0 <= j < length cl -> ok_cls mm' (length mm) cl[j])
+                        }
+  ensures {mc <= nc}
+  ensures {permut_all (old(cl)) cl}
+  let ref cc = nc in
+  for i = nc - 1 downto 0 do
+    invariant {valid_state mm na cl cc}
+    invariant {0 <= cc <= nc}
+    invariant {i < cc}
+    invariant {forall j . i < j < cc -> undef_cls mm na cl[j]}
+    invariant {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+    invariant {permut_all (old(cl)) cl} 
+    if is_true_cls mm na cl[i]
+    then (swap cl i (cc - 1);
+          cc <- cc - 1)
+    else
+      (if is_false_cls mm na cl[i]
+       then return (false, cc)
+       else ()
+      )
+  done;
+  return (true, cc) 
+
+let remaining_arbitrary (mm: assignment) (na: int) (ghost cl: array cls) =
+  requires {valid_state mm na cl 0}
+  ensures {valid_state mm (length mm) cl 0}
+  ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]} 
+  for i = na to length mm - 1 do
+    invariant {valid_state mm i cl 0}
+    invariant {forall i . 0 <= i < na -> old(mm)[i] = mm[i]} 
+    mm[i] <- i
+   done
 
 (* Function `dpll` checks the current state of the search using `scan`,
    and after that, if the search can be continued, extends the current
@@ -79,7 +237,37 @@ let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool, mc: int)
    if `mm` cannot possibly be extended to a model. *)
 
 let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
-= absurd
+= requires {valid_state mm na cl nc}
+  requires {na <= length mm}
+  variant {length mm - na}
+  ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]}
+  ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+  ensures {valid_state mm na cl nc}
+  ensures {s = true -> valid_state mm (length mm) cl 0}
+  ensures {forall mm' . 1 < na -> extends mm na mm' -> extends (old(mm)) (na - 1) mm'}
+  ensures {s = false -> forall mm' . extends (old(mm)) na mm' ->
+                        not (forall j . 0 <= j < length cl -> ok_cls mm' (length mm) cl[j])
+                        }
+  ensures {permut_all (old(cl)) cl}
+  let (b, mc) = scan mm cl nv na nc in
+  if b then
+     if mc <= 0 then 
+      begin
+        remaining_arbitrary mm na cl; 
+        return true
+      end
+     else
+     begin
+      mm[na] <- na;
+      if dpll mm cl nv (na + 1) mc
+      then return true
+      else
+        begin
+          mm[na] <- -na;
+          return dpll mm cl nv (na + 1) mc
+        end
+     end
+  else return false
 
 (* Function `sat` implements a simple 3SAT solver. If it returns `true`,
    assignment `mm` contains a model of the clause set `cl`. If it returns
@@ -94,4 +282,4 @@ let sat (mm: assignment) (cl: array cls) : (sat: bool)
   ensures  { not sat -> forall mc. is_assignment mc (length mm) ->
     exists i. 0 <= i < length cl /\ not ok_cls mc (length mm) cl[i] }
   ensures  { permut_all (old cl) cl }
-= dpll mm cl (length mm) 1 (length cl)
+= mm[0] <- 0; dpll mm cl (length mm) 1 (length cl)
