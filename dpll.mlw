@@ -94,7 +94,7 @@ predicate valid_clauses (mm: assignment) (cl: array cls) =
 predicate valid_state (mm: assignment) (na: int) (cl: array cls) (nc: int) =
   is_assignment mm na /\ inactive_ok mm na cl nc /\ valid_clauses mm cl /\ 0 <= nc <= length cl
 
-lemma cls_expand : forall c:cls . exists l1:lit . exists l2:lit . exists l3:lit . c = (l1, l2, l3) 
+let lemma cls_expand (c:cls) = ensures {exists l1:lit . exists l2:lit . exists l3:lit . c = (l1, l2, l3) } true
 
 let is_true (mm: assignment) (na: int) (l: lit): bool =
    requires {is_assignment mm na}
