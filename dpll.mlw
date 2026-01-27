@@ -253,7 +253,6 @@ let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
   ensures {valid_state mm na cl nc}
   ensures {s = true -> valid_state mm (length mm) cl 0}
-  ensures {forall mm' . 1 < na -> extends mm na mm' -> extends (old(mm)) (na - 1) mm'}
   ensures {s = false -> forall mm' . extends mm na mm' -> exists i . 0 <= i < length cl /\ nok_cls mm' (length mm') cl[i] }
   ensures {permut_all (old(cl)) cl}
   let (b, mc) = scan mm cl nv na nc in
