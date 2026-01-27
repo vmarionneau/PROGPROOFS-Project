@@ -171,14 +171,28 @@ lemma nok_not_ok : forall mm na c . is_assignment mm na -> nok_cls mm na c -> no
 predicate extends (mm: array int) (na: int) (mm': array int) = 
   is_assignment mm na /\
   is_assignment mm' (length mm) /\
-  length mm = length mm' /\
+  length mm <= length mm' /\
   (forall i . 0 <= i < na -> mm[i] = mm'[i])
+
+lemma extends_1 : forall mm mm' . is_assignment mm 1 -> 
+                                  is_assignment mm' (length mm) ->
+                                  length mm <= length mm' ->
+                                  extends mm 1 mm'
 
 lemma extends_succ : forall mm na mm' . is_assignment mm na -> 
                                         na < length mm ->
                                         extends mm na mm' -> 
-                                        length mm = length mm' ->
+                                        length mm <= length mm' ->
                                         extends (mm[na <- na]) (na + 1) mm' \/ extends (mm[na <- - na]) (na + 1) mm'
+
+lemma permut_all_forall : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 
+                       (forall i . 0 <= i < length a1 -> p a1[i]) ->
+                       (forall i . 0 <= i < length a2 -> p a2[i])
+
+lemma permut_all_prop_exists : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 
+                       (exists i . 0 <= i < length a1 /\ p a1[i]) ->
+                       (exists i . 0 <= i < length a2 /\ p a2[i])
+
 
 (* Function `scan` moves the clauses which are true in
    assignment `mm` outside of the active zone `cl[0..nc)`,
@@ -195,9 +209,7 @@ let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool , mc: int)
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
   ensures {b = true -> active_undef mm na cl mc}
   ensures {b = true -> 0 < mc -> na < length mm}
-  ensures {b = false -> forall mm' . extends (old(mm)) na mm' ->
-                        not (forall j . 0 <= j < length cl -> ok_cls mm' (length mm) cl[j])
-                        }
+  ensures {b = false -> exists i . 0 <= i < length cl /\ nok_cls mm na cl[i] }
   ensures {mc <= nc}
   ensures {permut_all (old(cl)) cl}
   let ref cc = nc in
@@ -240,14 +252,13 @@ let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
 = requires {valid_state mm na cl nc}
   requires {na <= length mm}
   variant {length mm - na}
+  ensures {length mm = length (old mm)}
   ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]}
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
   ensures {valid_state mm na cl nc}
   ensures {s = true -> valid_state mm (length mm) cl 0}
   ensures {forall mm' . 1 < na -> extends mm na mm' -> extends (old(mm)) (na - 1) mm'}
-  ensures {s = false -> forall mm' . extends (old(mm)) na mm' ->
-                        not (forall j . 0 <= j < length cl -> ok_cls mm' (length mm) cl[j])
-                        }
+  ensures {s = false -> forall mm' . extends mm na mm' -> exists i . 0 <= i < length cl /\ nok_cls mm' (length mm') cl[i] }
   ensures {permut_all (old(cl)) cl}
   let (b, mc) = scan mm cl nv na nc in
   if b then
