@@ -103,32 +103,7 @@ predicate valid_clauses (mm: assignment) (cl: array cls) =
 predicate valid_state (mm: assignment) (na: int) (cl: array cls) (nc: int) =
   is_assignment mm na /\ inactive_ok mm na cl nc /\ valid_clauses mm cl /\ 0 <= nc <= length cl
 
-lemma valid_state_mono :
-  forall mm na cl nc . valid_state mm na cl nc -> na < length mm -> valid_state mm[na <- na] (na + 1) cl nc 
-
-lemma valid_state_mono' :
-  forall mm na cl nc . valid_state mm na cl nc -> na < length mm -> valid_state mm[na <- -na] (na + 1) cl nc 
-
-lemma valid_state_anti :
-  forall mm na cl nc mc . valid_state mm na cl mc -> mc <= nc <= length cl -> valid_state mm na cl nc 
-
 lemma cls_expand : forall c:cls . exists l1:lit . exists l2:lit . exists l3:lit . c = (l1, l2, l3) 
-
-lemma ok_cls_equiv : 
-  forall mm1 mm2 na c . length mm1 = length mm2 -> ok_cls mm1 na c -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> ok_cls mm2 na c
-
-lemma inactive_ok_equiv : 
-  forall mm1 mm2 na cl nc . length mm1 = length mm2 -> inactive_ok mm1 na cl nc -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> inactive_ok mm2 na cl nc
-
-lemma valid_state_equiv : 
-  forall mm1 mm2 na cl nc . length mm1 = length mm2 -> valid_state mm1 na cl nc -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> valid_state mm2 na cl nc
-
-lemma valid_state_equiv':
-  forall mm na cl1 cl2 nc . valid_state mm na cl1 nc -> length cl1 = length cl2 -> valid_clauses mm cl2 -> (forall i . nc <= i < length cl1 -> cl1[i] = cl2[i]) -> valid_state mm na cl2 nc 
-
-lemma valid_state_mono_equiv :
-  forall mm mm' na cl nc . valid_state mm na cl nc -> length mm = length mm' -> (forall i . 0 <= i < na -> mm[i] = mm'[i]) -> na < length mm -> valid_state mm'[na <- na] (na + 1) cl nc 
-
 
 let is_true (mm: assignment) (na: int) (l: lit): bool =
    requires {is_assignment mm na}
@@ -164,23 +139,6 @@ lemma assignment_na_def_cls : forall mm na . is_assignment mm na -> na = length 
 
 lemma nok_not_ok : forall mm na c . is_assignment mm na -> nok_cls mm na c -> not (ok_cls mm na c)
 
-predicate extends (mm: array int) (na: int) (mm': array int) = 
-  is_assignment mm na /\
-  is_assignment mm' (length mm) /\
-  length mm <= length mm' /\
-  (forall i . 0 <= i < na -> mm[i] = mm'[i])
-
-lemma extends_1 : forall mm mm' . is_assignment mm 1 -> 
-                                  is_assignment mm' (length mm) ->
-                                  length mm <= length mm' ->
-                                  extends mm 1 mm'
-
-lemma extends_succ : forall mm na mm' . is_assignment mm na -> 
-                                        na < length mm ->
-                                        extends mm na mm' -> 
-                                        length mm <= length mm' ->
-                                        extends (mm[na <- na]) (na + 1) mm' \/ extends (mm[na <- - na]) (na + 1) mm'
-
 lemma permut_all_forall : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 
                        (forall i . 0 <= i < length a1 -> p a1[i]) ->
                        (forall i . 0 <= i < length a2 -> p a2[i])
@@ -189,6 +147,11 @@ lemma permut_all_prop_exists : forall a1:array cls . forall a2:array cls . foral
                        (exists i . 0 <= i < length a1 /\ p a1[i]) ->
                        (exists i . 0 <= i < length a2 /\ p a2[i])
 
+predicate extends (mm: array int) (na: int) (mm': array int) = 
+  is_assignment mm na /\
+  is_assignment mm' (length mm) /\
+  length mm <= length mm' /\
+  (forall i . 0 <= i < na -> mm[i] = mm'[i])
 
 (* Function `scan` moves the clauses which are true in
    assignment `mm` outside of the active zone `cl[0..nc)`,
