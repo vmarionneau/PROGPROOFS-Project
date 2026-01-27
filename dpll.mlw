@@ -70,15 +70,6 @@ predicate nok_cls (mm: assignment) (na: int) (c: cls) =
 predicate def_lit (mm: assignment) (na: int) (l: lit) =
   ok_lit mm na l \/ nok_lit mm na l
 
-predicate def_cls (mm: assignment) (na: int) (c: cls) =
-  ok_cls mm na c \/ nok_cls mm na c
-
-predicate full_def_cls (mm: assignment) (na: int) (c: cls) =
-  let l1, l2, l3 = c in
-  def_lit mm na l1 /\
-  def_lit mm na l2 /\
-  def_lit mm na l3
-
 predicate undef_cls (mm: assignment) (na: int) (c: cls) =
     not (ok_cls mm na c) /\ not (nok_cls mm na c)
 
@@ -131,12 +122,8 @@ let is_false_cls (mm : assignment) (na: int) (c : cls): bool =
   is_false mm na l2 && 
   is_false mm na l3
 
-lemma assignment_na_def : forall mm na . is_assignment mm na -> na = length mm -> forall l . valid_lit mm l -> def_lit mm na l 
-(*
-lemma full_def_def : forall mm na c . full_def_cls mm na c -> def_cls mm na c
+lemma assignment_na_def : forall mm na . is_assignment mm na -> na = length mm -> forall l . valid_lit mm l -> def_lit mm na l
 
-lemma assignment_na_def_cls : forall mm na . is_assignment mm na -> na = length mm -> forall c . valid_clause mm c -> def_cls mm na c 
-*)
 lemma nok_not_ok : forall mm na c . is_assignment mm na -> nok_cls mm na c -> not (ok_cls mm na c)
 
 lemma permut_all_forall : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 

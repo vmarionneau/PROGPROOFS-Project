@@ -16,8 +16,8 @@
  <proof prover="1"><result status="valid" time="0.144344" steps="15084"/></proof>
  </goal>
  <goal name="cls_expand" proved="true">
- <proof prover="1"><result status="unknown" time="0.032566" steps="8011"/></proof>
- <proof prover="3"><result status="unknown" time="0.015052" steps="6"/></proof>
+ <proof prover="1" obsolete="true"><result status="unknown" time="0.032566" steps="8011"/></proof>
+ <proof prover="3" obsolete="true"><result status="unknown" time="0.015052" steps="6"/></proof>
  <proof prover="4"><result status="valid" time="0.018070" steps="41176"/></proof>
  </goal>
  <goal name="is_true&#39;vc" expl="VC for is_true" proved="true">
@@ -199,7 +199,7 @@
   <proof prover="4"><result status="valid" time="0.004499" steps="59606"/></proof>
   </goal>
   <goal name="scan&#39;vc.33" expl="postcondition" proved="true">
-  <proof prover="1"><result status="timeout" time="5.000000" steps="392151"/></proof>
+  <proof prover="1" obsolete="true"><result status="timeout" time="5.000000" steps="392151"/></proof>
   <proof prover="3"><result status="valid" time="0.757454" steps="6918"/></proof>
   </goal>
   <goal name="scan&#39;vc.34" expl="postcondition" proved="true">
@@ -220,7 +220,7 @@
  </transf>
  </goal>
  <goal name="remaining_arbitrary&#39;vc" expl="VC for remaining_arbitrary" proved="true">
- <proof prover="3"><result status="valid" time="0.526062" steps="4936"/></proof>
+ <proof prover="3"><result status="valid" time="0.721133" steps="4936"/></proof>
  </goal>
  <goal name="dpll&#39;vc" expl="VC for dpll" proved="true">
  <transf name="split_vc" proved="true" >
@@ -308,7 +308,7 @@
   <proof prover="4"><result status="valid" time="0.017712" steps="44591"/></proof>
   </goal>
   <goal name="dpll&#39;vc.22" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="4.945394" steps="32257"/></proof>
+  <proof prover="3"><result status="valid" time="5.555883" steps="32257"/></proof>
   </goal>
   <goal name="dpll&#39;vc.23" expl="precondition" proved="true">
   <proof prover="1"><result status="valid" time="0.095494" steps="19706"/></proof>
@@ -350,7 +350,7 @@
     </goal>
     <goal name="dpll&#39;vc.27.0.4" expl="postcondition" proved="true">
     <proof prover="1"><result status="valid" time="0.194418" steps="46883"/></proof>
-    <proof prover="3"><result status="valid" time="1.396912" steps="8422"/></proof>
+    <proof prover="3"><result status="valid" time="1.152707" steps="8422"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.5" expl="postcondition" proved="true">
     <proof prover="1"><result status="valid" time="0.162327" steps="30782"/></proof>
@@ -519,7 +519,7 @@
    <goal name="sat&#39;vc.5.1" expl="postcondition" proved="true">
    <transf name="instantiate" proved="true" arg1="h" arg2="mc">
     <goal name="sat&#39;vc.5.1.0" expl="postcondition" proved="true">
-    <proof prover="1"><result status="timeout" time="5.000000" steps="513751"/></proof>
+    <proof prover="1" obsolete="true"><result status="timeout" time="5.000000" steps="513751"/></proof>
     <proof prover="3"><result status="valid" time="0.216000" steps="1755"/></proof>
     </goal>
    </transf>
