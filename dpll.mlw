@@ -112,11 +112,7 @@ lemma valid_state_mono' :
 lemma valid_state_anti :
   forall mm na cl nc mc . valid_state mm na cl mc -> mc <= nc <= length cl -> valid_state mm na cl nc 
 
-lemma not_ok_na_0 : forall mm l . not (ok_lit mm 0 l)
-
 lemma cls_expand : forall c:cls . exists l1:lit . exists l2:lit . exists l3:lit . c = (l1, l2, l3) 
-
-lemma not_ok_na_0_cls : forall mm c . not (ok_cls mm 0 c)
 
 lemma ok_cls_equiv : 
   forall mm1 mm2 na c . length mm1 = length mm2 -> ok_cls mm1 na c -> (forall i . 0 <= i < na -> mm1[i] = mm2[i]) -> ok_cls mm2 na c
