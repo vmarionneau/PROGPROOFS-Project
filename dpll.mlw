@@ -149,7 +149,7 @@ predicate extends (mm: array int) (na: int) (mm': array int) =
    assigned a false truth value), and therefore the current
    assignment `mm` cannot possibly be extended to a model. *)
 
-let scan (mm: assignment) (cl: array cls) (nv na nc: int) : (b: bool , mc: int)
+let scan (mm: assignment) (cl: array cls) (na nc: int) : (b: bool , mc: int)
 = requires {valid_state mm na cl nc}
   ensures {valid_state mm na cl mc}
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
@@ -194,7 +194,7 @@ let remaining_arbitrary (mm: assignment) (na: int) (ghost cl: array cls) =
    returns `true` if `mm` has been extended to a model, and `false`
    if `mm` cannot possibly be extended to a model. *)
 
-let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
+let rec dpll (mm: assignment) (cl: array cls) (na nc: int) : (s: bool)
 = requires {valid_state mm na cl nc}
   requires {na <= length mm}
   variant {length mm - na}
@@ -205,7 +205,7 @@ let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
   ensures {s = true -> valid_state mm (length mm) cl 0}
   ensures {s = false -> forall mm' . extends mm na mm' -> exists i . 0 <= i < length cl /\ nok_cls mm' (length mm') cl[i] }
   ensures {permut_all (old(cl)) cl}
-  let (b, mc) = scan mm cl nv na nc in
+  let (b, mc) = scan mm cl na nc in
   if b then
      if mc <= 0 then 
       begin
@@ -215,12 +215,12 @@ let rec dpll (mm: assignment) (cl: array cls) (nv na nc: int) : (s: bool)
      else
      begin
       mm[na] <- na;
-      if dpll mm cl nv (na + 1) mc
+      if dpll mm cl (na + 1) mc
       then return true
       else
         begin
           mm[na] <- -na;
-          return dpll mm cl nv (na + 1) mc
+          return dpll mm cl (na + 1) mc
         end
      end
   else return false
@@ -238,4 +238,4 @@ let sat (mm: assignment) (cl: array cls) : (sat: bool)
   ensures  { not sat -> forall mc. is_assignment mc (length mm) ->
     exists i. 0 <= i < length cl /\ not ok_cls mc (length mm) cl[i] }
   ensures  { permut_all (old cl) cl }
-= mm[0] <- 0; dpll mm cl (length mm) 1 (length cl)
+= mm[0] <- 0; dpll mm cl 1 (length cl)
