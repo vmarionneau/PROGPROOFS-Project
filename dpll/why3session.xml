@@ -155,16 +155,16 @@
   <proof prover="3"><result status="valid" time="0.026234" steps="21"/></proof>
   </goal>
   <goal name="scan&#39;vc.31" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.023813" steps="46"/></proof>
+  <proof prover="3"><result status="valid" time="0.023813" steps="15"/></proof>
   </goal>
   <goal name="scan&#39;vc.32" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.719895" steps="4816"/></proof>
+  <proof prover="3"><result status="valid" time="0.719895" steps="4854"/></proof>
   </goal>
   <goal name="scan&#39;vc.33" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018741" steps="17"/></proof>
+  <proof prover="3"><result status="valid" time="0.018741" steps="15"/></proof>
   </goal>
   <goal name="scan&#39;vc.34" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018438" steps="17"/></proof>
+  <proof prover="3"><result status="valid" time="0.018438" steps="15"/></proof>
   </goal>
   <goal name="scan&#39;vc.35" expl="out of loop bounds" proved="true">
   <proof prover="3"><result status="valid" time="0.018091" steps="6"/></proof>
@@ -180,13 +180,13 @@
   <proof prover="3"><result status="valid" time="0.015643" steps="2"/></proof>
   </goal>
   <goal name="dpll&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021321" steps="21"/></proof>
+  <proof prover="3"><result status="valid" time="0.021321" steps="20"/></proof>
   </goal>
   <goal name="dpll&#39;vc.2" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.021299" steps="25"/></proof>
   </goal>
   <goal name="dpll&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021253" steps="25"/></proof>
+  <proof prover="3"><result status="valid" time="0.016699" steps="25"/></proof>
   </goal>
   <goal name="dpll&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.019509" steps="18"/></proof>
@@ -205,19 +205,19 @@
   <proof prover="3"><result status="valid" time="0.019277" steps="18"/></proof>
   </goal>
   <goal name="dpll&#39;vc.7" expl="index in array bounds" proved="true">
-  <proof prover="3"><result status="valid" time="0.023026" steps="54"/></proof>
+  <proof prover="3"><result status="valid" time="0.023026" steps="51"/></proof>
   </goal>
   <goal name="dpll&#39;vc.8" expl="variant decrease" proved="true">
   <proof prover="3"><result status="valid" time="0.024773" steps="22"/></proof>
   </goal>
   <goal name="dpll&#39;vc.9" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.278797" steps="1214"/></proof>
+  <proof prover="3"><result status="valid" time="0.278797" steps="906"/></proof>
   </goal>
   <goal name="dpll&#39;vc.10" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.055851" steps="129"/></proof>
+  <proof prover="3"><result status="valid" time="0.055851" steps="126"/></proof>
   </goal>
   <goal name="dpll&#39;vc.11" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.120646" steps="220"/></proof>
+  <proof prover="3"><result status="valid" time="0.101697" steps="85"/></proof>
   </goal>
   <goal name="dpll&#39;vc.12" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.028089" steps="28"/></proof>
@@ -226,22 +226,22 @@
   <proof prover="3"><result status="valid" time="0.019567" steps="28"/></proof>
   </goal>
   <goal name="dpll&#39;vc.14" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.030249" steps="80"/></proof>
+  <proof prover="3"><result status="valid" time="0.030249" steps="77"/></proof>
   </goal>
   <goal name="dpll&#39;vc.15" expl="index in array bounds" proved="true">
-  <proof prover="3"><result status="valid" time="0.040078" steps="88"/></proof>
+  <proof prover="3"><result status="valid" time="0.040078" steps="85"/></proof>
   </goal>
   <goal name="dpll&#39;vc.16" expl="variant decrease" proved="true">
   <proof prover="3"><result status="valid" time="0.030530" steps="38"/></proof>
   </goal>
   <goal name="dpll&#39;vc.17" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="2.371447" steps="10945"/></proof>
+  <proof prover="3"><result status="valid" time="3.455723" steps="14753"/></proof>
   </goal>
   <goal name="dpll&#39;vc.18" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.106296" steps="460"/></proof>
+  <proof prover="3"><result status="valid" time="0.106296" steps="456"/></proof>
   </goal>
   <goal name="dpll&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.158154" steps="392"/></proof>
+  <proof prover="3"><result status="valid" time="0.126399" steps="144"/></proof>
   </goal>
   <goal name="dpll&#39;vc.20" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.027789" steps="44"/></proof>
@@ -254,26 +254,26 @@
    <goal name="dpll&#39;vc.21.1" expl="postcondition" proved="true">
    <transf name="assert" proved="true" arg1="(extends mm[na &lt;- na] (na + 1) mm&#39; \/ extends mm[na &lt;- (- na)] (na + 1) mm&#39;)">
     <goal name="dpll&#39;vc.21.1.0" expl="asserted formula" proved="true">
-    <proof prover="3"><result status="valid" time="3.707107" steps="26304"/></proof>
+    <proof prover="3"><result status="valid" time="5.116481" steps="28025"/></proof>
     </goal>
     <goal name="dpll&#39;vc.21.1.1" expl="postcondition" proved="true">
     <transf name="destruct" proved="true" arg1="h">
      <goal name="dpll&#39;vc.21.1.1.0" expl="postcondition" proved="true">
      <transf name="assert" proved="true" arg1="(extends mm2 (na + 1) mm&#39;)">
       <goal name="dpll&#39;vc.21.1.1.0.0" expl="asserted formula" proved="true">
-      <proof prover="3"><result status="valid" time="0.829090" steps="3664"/></proof>
+      <proof prover="3"><result status="valid" time="0.691377" steps="3158"/></proof>
       </goal>
       <goal name="dpll&#39;vc.21.1.1.0.1" expl="postcondition" proved="true">
-      <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl1,cl,(nok_cls mm&#39; mm&#39;.length)">
+      <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl,cl1,(nok_cls mm&#39; (mm&#39;.length))">
        <goal name="dpll&#39;vc.21.1.1.0.1.0" expl="postcondition" proved="true">
-       <proof prover="3"><result status="valid" time="0.153730" steps="356"/></proof>
+       <proof prover="3"><result status="valid" time="2.394363" steps="12117"/></proof>
        </goal>
       </transf>
       </goal>
      </transf>
      </goal>
      <goal name="dpll&#39;vc.21.1.1.1" expl="postcondition" proved="true">
-     <proof prover="3"><result status="valid" time="0.635192" steps="3524"/></proof>
+     <proof prover="3"><result status="valid" time="0.394012" steps="2271"/></proof>
      </goal>
     </transf>
     </goal>
@@ -282,27 +282,27 @@
   </transf>
   </goal>
   <goal name="dpll&#39;vc.22" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.033659" steps="137"/></proof>
+  <proof prover="3"><result status="valid" time="0.033659" steps="132"/></proof>
   </goal>
   <goal name="dpll&#39;vc.23" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.017422" steps="16"/></proof>
+  <proof prover="3"><result status="valid" time="0.017422" steps="18"/></proof>
   </goal>
   <goal name="dpll&#39;vc.24" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.016699" steps="18"/></proof>
+  <proof prover="3"><result status="valid" time="0.021253" steps="20"/></proof>
   </goal>
   <goal name="dpll&#39;vc.25" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.013913" steps="12"/></proof>
+  <proof prover="3"><result status="valid" time="0.013913" steps="14"/></proof>
   </goal>
   <goal name="dpll&#39;vc.26" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.128013" steps="812"/></proof>
+  <proof prover="3"><result status="valid" time="0.128013" steps="831"/></proof>
   </goal>
   <goal name="dpll&#39;vc.27" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.013913" steps="12"/></proof>
+  <proof prover="3"><result status="valid" time="0.013913" steps="14"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="sat&#39;vc" expl="VC for sat" proved="true">
- <proof prover="3"><result status="valid" time="0.099375" steps="1321"/></proof>
+ <proof prover="3"><result status="valid" time="0.243342" steps="1321"/></proof>
  </goal>
 </theory>
 </file>

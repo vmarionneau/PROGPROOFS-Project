@@ -76,9 +76,6 @@ predicate undef_cls (mm: assignment) (na: int) (c: cls) =
 predicate inactive_ok (mm: assignment) (na: int) (cl: array cls) (nc: int) =
   forall i . nc <= i < length cl -> ok_cls mm na cl[i]
 
-predicate active_undef (mm: assignment) (na: int) (cl: array cls) (nc: int) =
-  forall i . 0 <= i < nc -> undef_cls mm na cl[i]
-
 predicate valid_clauses (mm: assignment) (cl: array cls) =
   forall i . 0 <= i < length cl -> is_cls (length mm) cl[i]
 
@@ -144,7 +141,7 @@ let scan (mm: assignment) (cl: array cls) (na nc: int) : (b: bool , mc: int)
 = requires {valid_state mm na cl nc}
   ensures {valid_state mm na cl mc}
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
-  ensures {b = true -> active_undef mm na cl mc}
+  ensures {mc <= nc}
   ensures {b = true -> 0 < mc -> na < length mm}
   ensures {b = false -> exists i . 0 <= i < length cl /\ nok_cls mm na cl[i] }
   ensures {permut_all (old(cl)) cl}
