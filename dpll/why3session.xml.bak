@@ -34,21 +34,21 @@
  <goal name="permut_all_forall" proved="true">
  <proof prover="3"><result status="valid" time="0.017595" steps="34"/></proof>
  </goal>
- <goal name="permut_all_prop_exists" proved="true">
+ <goal name="permut_all_exists" proved="true">
  <transf name="intros" proved="true" arg1="a1,a2,p,perm,ex_p">
-  <goal name="permut_all_prop_exists.0" proved="true">
+  <goal name="permut_all_exists.0" proved="true">
   <transf name="case" proved="true" arg1="(exists i:int. (0 &lt;= i /\ i &lt; a2.length) /\ (p @ a2[i]) = True)">
-   <goal name="permut_all_prop_exists.0.0" expl="true case" proved="true">
+   <goal name="permut_all_exists.0.0" expl="true case" proved="true">
    <proof prover="3"><result status="valid" time="0.020242" steps="18"/></proof>
    </goal>
-   <goal name="permut_all_prop_exists.0.1" expl="false case" proved="true">
+   <goal name="permut_all_exists.0.1" expl="false case" proved="true">
    <transf name="assert" proved="true" arg1="(forall i . 0 &lt;= i &lt; a2.length -&gt; not (p a2[i]))">
-    <goal name="permut_all_prop_exists.0.1.0" expl="asserted formula" proved="true">
+    <goal name="permut_all_exists.0.1.0" expl="asserted formula" proved="true">
     <proof prover="3"><result status="valid" time="0.022860" steps="18"/></proof>
     </goal>
-    <goal name="permut_all_prop_exists.0.1.1" expl="false case" proved="true">
+    <goal name="permut_all_exists.0.1.1" expl="false case" proved="true">
     <transf name="instantiate" proved="true" arg1="permut_all_forall" arg2="a2,a1,(fun x -&gt; not (p x))">
-     <goal name="permut_all_prop_exists.0.1.1.0" expl="false case" proved="true">
+     <goal name="permut_all_exists.0.1.1.0" expl="false case" proved="true">
      <proof prover="3"><result status="valid" time="0.031311" steps="120"/></proof>
      </goal>
     </transf>
@@ -318,28 +318,28 @@
     <goal name="dpll&#39;vc.29.1.1" expl="postcondition" proved="true">
     <transf name="destruct" proved="true" arg1="h">
      <goal name="dpll&#39;vc.29.1.1.0" expl="postcondition" proved="true">
-     <transf name="instantiate" proved="true" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (length mm&#39;))">
+     <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl1,cl,(nok_cls mm&#39; (length mm&#39;))">
       <goal name="dpll&#39;vc.29.1.1.0.0" expl="postcondition" proved="true">
       <transf name="assert" proved="true" arg1="(extends mm2 (na + 1) mm&#39;)">
        <goal name="dpll&#39;vc.29.1.1.0.0.0" expl="asserted formula" proved="true">
-       <proof prover="3"><result status="valid" time="0.591226" steps="2492"/></proof>
+       <proof prover="3"><result status="valid" time="0.337709" steps="2492"/></proof>
        </goal>
        <goal name="dpll&#39;vc.29.1.1.0.0.1" expl="postcondition" proved="true">
-       <proof prover="3"><result status="valid" time="0.142201" steps="414"/></proof>
+       <proof prover="3"><result status="valid" time="0.063352" steps="414"/></proof>
        </goal>
       </transf>
       </goal>
      </transf>
      </goal>
      <goal name="dpll&#39;vc.29.1.1.1" expl="postcondition" proved="true">
-     <transf name="instantiate" proved="true" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (mm&#39;.length))">
+     <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl1,cl,(nok_cls mm&#39; (mm&#39;.length))">
       <goal name="dpll&#39;vc.29.1.1.1.0" expl="postcondition" proved="true">
       <transf name="apply" proved="true" arg1="Ensures6">
        <goal name="dpll&#39;vc.29.1.1.1.0.0" expl="apply premises" proved="true">
-       <proof prover="3"><result status="valid" time="0.036234" steps="57"/></proof>
+       <proof prover="3"><result status="valid" time="0.025222" steps="57"/></proof>
        </goal>
        <goal name="dpll&#39;vc.29.1.1.1.0.1" expl="apply premises" proved="true">
-       <proof prover="3"><result status="valid" time="0.224854" steps="1004"/></proof>
+       <proof prover="3"><result status="valid" time="0.137246" steps="1004"/></proof>
        </goal>
       </transf>
       </goal>

@@ -188,7 +188,6 @@ let rec dpll (mm: assignment) (cl: array cls) (na nc: int) : (s: bool)
 = requires {valid_state mm na cl nc}
   requires {na <= length mm}
   variant {length mm - na}
-  ensures {length mm = length (old mm)}
   ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]}
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
   ensures {valid_state mm na cl nc}
