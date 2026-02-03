@@ -1,0 +1,185 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm]{geometry}
+\usepackage{float}
+\usepackage{stmaryrd}
+\usepackage{mathpartir}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{mathpartir}
+\usepackage{listings}
+
+\title{Proofs of Programs Project Report : DPLL}
+\author{Virgil Marionneau}
+\date{2025-2026}
+
+\lstset{
+  columns=[c]fixed,
+  basicstyle=\small\ttfamily,
+  numbers=left,
+  keywordstyle=\color{blue},
+  keywords={requires, invariant},
+  keywordstyle=[2]{\color{blue!20!black!30!green}},
+  morekeywords=[2]{ensures, variant},
+  keywordstyle=[3]{\color{red!100}},
+  morekeywords=[3]{let, rec},
+  keywordstyle=[4]{\color{red!100!green!50}},
+  morekeywords=[4]{ghost},
+  upquote=true,
+  commentstyle=,
+  breaklines=true,
+  showstringspaces=false,
+  mathescape
+}
+
+\begin{document}
+\maketitle
+\section{Predicates}
+To facilitate stating specifications, we start by introducing some supplementary predicates.
+\begin{itemize}
+\item \textbf{nok\_lit} and \textbf{nok\_cls} are dual to \textbf{ok\_lit} and \textbf{ok\_cls}, they state that under the current state of the assignment $mm$, a given literal/clause is set to $\bot$. This is different from the negations of \textbf{ok\_lit} and \textbf{ok\_cls} as negating these includes the case of a literal/clause whose value is yet to be determined.
+\item \textbf{def\_lit} states that the value of a literal is fully defined
+\item \textbf{undef\_cls} states that the value of a clause is not yet determined, this predicate is important for stating an invariant on the organization of the clauses
+\item \textbf{inactive\_ok} states that all inactive clauses have value set to $\top$ by the current state of the assignment
+\item \textbf{valid\_clauses} ensures that all literals occuring in each clause is inside the domain of the assignment
+\item \textbf{valid\_state} packages desirable invariantes together, stating that $mm$ is a proper assignment for the active literals, that \textbf{inactive\_ok} and \textbf{valid\_clauses} hold and finally that the number of active clauses is between $0$ and the number of clauses. This is the main predicate that we will thread through our specifications
+\item \textbf{extends} states that a fully defined assignment $mm'$ extends a partially defined assignment $mm$ in the sense that all defined literals of $mm$ hvae the same value assigned to them by $mm'$
+\end{itemize}
+\section{Lemmas}
+We now state some lemmas that ease the proof effort for the solvers.
+\begin{itemize}
+\item \textbf{cls\_expand} states that any clause is a tuple of three literals, this helps the provers expand clauses without being guided to do so each time
+\item \textbf{assignment\_na\_def} states that any active literal, i.e smaller that $na$, has a defined value
+\item \textbf{nok\_not\_ok} states that a clause with value $\bot$ does not have value $\top$
+\item \textbf{permut\_all\_forall} states that if a property is true of all elements of an array of clauses then it is also true of all elements of a permutation of said array. It is mainly useful for proving the next lemma
+\item \textbf{permut\_all\_exists} states, conversely, that if at least one element of an array of clauses satisfies a property then in ant permutation of said array there is an element that satisfies said property
+\end{itemize}
+
+\section{Utility functions}
+
+To help with writing implementing DPLL, we provide some utility functions 
+
+\begin{lstlisting}
+  
+let is_true (mm: assignment) (na: int) (l: lit): bool =
+   requires {is_assignment mm na}
+   ensures {result = true <-> ok_lit mm na l}
+\end{lstlisting}
+
+\begin{lstlisting}
+
+let is_false (mm: assignment) (na: int) (l: lit): bool =
+    requires {is_assignment mm na}
+    ensures {result = true <-> nok_lit mm na l}
+
+let is_true_cls (mm : assignment) (na: int) (c : cls): bool =
+  requires {is_assignment mm na}
+  ensures {result = true <-> ok_cls mm na c}
+  
+let is_false_cls (mm : assignment) (na: int) (c : cls): bool =
+  requires {is_assignment mm na}
+  ensures {result = true <-> nok_cls mm na c}
+
+let remaining_arbitrary (mm: assignment) (na: int) (ghost cl: array cls) =
+  requires {valid_state mm na cl 0}
+  ensures {valid_state mm (length mm) cl 0}
+
+\end{lstlisting}
+
+The first four are simply a way to compute \textbf{ok\_lit}, \textbf{ok\_cls}, \textbf{nok\_lit} and \textbf{nok\_cls}. We could have avoided this by definining these predicates using a \textbf{let predicate} but we chose to strive to avoid altering the provided code. The proof of those specifications is immediate as the functions are elementary.
+
+The more interesting utility function is \textbf{remaining\_arbitrary} which takes a partial assignment which forms a valid state with no inactive clauses and simply assigns arbitrary values to any unset literal. This function is useful to early exit from the dpll algorithm without having to keep calling \textbf{scan} and still end up with a valid assignment. Notice that we need to pass $cl$ as a ghost argument to be able to talk about it inside the specification despite not using it in the function body.
+
+The implementation of \textbf{remaining\_arbitrary} is a simple loop over the literals whose value hasn't been fixed, setting each of them to $\bot$. This loop only requires the following obvious invariants generalizing the post-conditions for the proof to go through seemlessly :
+
+\begin{lstlisting}
+invariant {valid_state mm i cl 0}
+invariant {forall i . 0 <= i < na -> old(mm)[i] = mm[i]} 
+\end{lstlisting}
+
+\section{The scan function}
+We give the following specification to the \textbf{scan} function :
+\begin{lstlisting}
+let scan (mm: assignment) (cl: array cls) (na nc: int) : (b: bool , mc: int) =
+  requires {valid_state mm na cl nc}
+  ensures {valid_state mm na cl mc}
+  ensures {mc <= nc}
+  ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+  ensures {b = true -> 0 < mc -> na < length mm}
+  ensures {b = false -> exists i . 0 <= i < length cl /\ nok_cls mm na cl[i] }
+  ensures {permut_all (old(cl)) cl}
+\end{lstlisting}
+
+We only require the search to be in a valid state as this is the minimal requirement we need for \textbf{scan} to be able to ensure its post-conditions.
+
+After running scan, we know that the new number of active clauses $mc$ forms a valid state with $mm$ and $na$ as we make sure to only 'deactivate' clauses set to $\top$ by $mm$. We could specify that $mc \le nc$ but as this is not useful for the reamining proofs, we choose to avoid cluttering the specifications.
+
+The number of active clauses can only decrease, even in the event of a failed scan. This is captured by the specification on line 4.
+
+The \textbf{scan} function shouldn't move any clause that is already inactive when it is called. This is captured by the specification on line 5 and is crucial to preserve the validity of the state, i.e, that any clause after $mc$ will be set to $\top$.
+
+If \textbf{scan} returns true and there remain active clauses (which are necessarily of undefined value as otherwise \textbf{scan} needs to return false), then it is impossible for all literals to be defined. This could be stated as a lemma but, as it would require a more complex statement and as the only time this is useful is when \textbf{scan} is called, it is enough to include it as a post-condition here.
+
+If \textbf{scan} returns false then it must have found a clause which is set to $\bot$ by the current assignment, this is captured by the post-condition on line 7. This statement is crucial to show completeness of the \textbf{sat}.
+
+Finally, \textbf{scan} should only permutate the clauses and not modify them in any other way to ensure that we cannot cheat by changing the formula under scrutinee.
+
+The implementation of \textbf{scan} if a simple \textbf{for} loop decreasing from the first active clause to the beginning of the clause array. It updates a local mutable reference $cc$ to keep track of the current number of active clauses and exits early when encountering a clause set to $\bot$. To prove its specification, we us the following invariants :
+\begin{lstlisting}
+ invariant {valid_state mm na cl cc}
+ invariant {0 <= cc <= nc}
+ invariant {i < cc}
+ invariant {forall j . i < j < cc -> undef_cls mm na cl[j]}
+ invariant {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+ invariant {permut_all (old(cl)) cl} 
+\end{lstlisting}
+
+Most of them are simply the generalization of the post-conditions to the intermediate state within the loop and the only extra invariant simply states that the clause under scrutinee is active.
+
+\section{The dpll function}
+
+We give the following specification to the \textbf{dpll} function :
+\begin{lstlisting}
+let rec dpll (mm: assignment) (cl: array cls) (na nc: int) : (s: bool) =
+  requires {valid_state mm na cl nc}
+  variant {length mm - na}
+  ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]}
+  ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
+  ensures {s = true -> valid_state mm (length mm) cl 0}
+  ensures {s = false ->
+             forall mm' . extends mm na mm' ->
+               exists i . 0 <= i < length cl /\
+               nok_cls mm' (length mm') cl[i]
+          }
+  ensures {permut_all (old(cl)) cl}
+\end{lstlisting}
+
+We only require that the search is in a valid state as dpll should always be callable when this is the case and \textbf{valid\_state} captures the minimal desirable requirements for the state of the search to be in for the dpll algorithm to be able to run.
+
+As we are assigning a value to the first undefined literal before any recursive call we thus have that every recursive call increases $na$ by 1. Because \textbf{valid\_state} guarantess \textbf{is\_assignment} $mm$ $na$ which implies $0 < na \le \text{length } mm$ (and because we preserve this predicate throughout our execution), we know that $\text{length } mm - na$ is strictly decreasing and positive which makes it the ideal variant to ensure termination.
+
+Any recursive call to \textbf{dpll} should only modify currently undefined literals which is captured on line 4 by stating that we ensure that the prefix of $mm$ up to $na$ is preserved.
+
+Similarly, currently inactive clauses remain inactive after extending the assignment and thus any call to \textbf{dpll} should leave the suffix of the clause array starting at $nc$ unchanged, as stated on line 5.
+
+Depending on the return value of \textbf{dpll}, we cant different things to hold :\\
+- If it returns true, we want all clauses to be inactive, this is stated on line 7 by making use of \textbf{valid\_state} for conciseness. This allows to show correctness of \textbf{sat}.\\
+- Otherwise, if it returns false, this should mean that it is impossible to extend the assignment given as input to obtain an assignment satisfying all clauses. This will imply completeness of \textbf{sat}. This is expressed on lines 8-12 by stating that any (fully defined) $mm'$ extending the assignment $mm$ has to set some clause to $\bot$. We chose this exact formulation to stay close to the specifications required of \textbf{sat}. This particular specification requires the manual use of tactics to inside of Why3 to properly handle the existential quantifier as well as the permutations.
+
+Finally we ask that the clauses are only permuted with no other change, ensuring that we cannot cheat by modifying them.
+
+\section{The sat function}
+
+The \textbf{sat} function only needed to be modified slightly by initializing the first element of the assignment to be $0$. The required specifications then follow immediately from those of \textbf{dpll}.
+
+\section{Conclusion}
+
+While the end result of this project is somewhat neat and tidy, my original solution included a sizable amount of auxiliary predicates and lemmas as well as many redundant pre-conditions and post-conditions. After careful reevaluation of my specifications, I realized that this was due to me underestimating both how powerful the SAT-solvers could be and how important proving some seemingly obvious statements was (e.g with the lemma \textbf{cls\_expand}). The major roadblock I faced was clearly the proof of completeness of \textbf{dpll} which I ended up doing by hand. While trying to get it to go through on its own I radically redesigned my specifications and realized that I had polluted my global context with too many lemmas causing the solvers to get confused on previously easy proofs. I think that with careful use of ghost code I could avoid this manual proof and if I had to revisit this project, this would be my first enquiry. All in all, I think I ended up with a pretty clean and tidy project without too much clutter.  
+
+\end{document}
