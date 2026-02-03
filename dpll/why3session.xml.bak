@@ -4,9 +4,9 @@
 <why3session shape_version="6">
 <prover id="2" name="Alt-Ergo" version="2.6.2" alternative="BV" timelimit="5" steplimit="0" memlimit="1000"/>
 <prover id="3" name="Alt-Ergo" version="2.6.2" timelimit="5" steplimit="0" memlimit="1000"/>
-<file format="whyml">
+<file format="whyml" proved="true">
 <path name=".."/><path name="dpll.mlw"/>
-<theory name="Top">
+<theory name="Top" proved="true">
  <goal name="swap&#39;vc" expl="VC for swap" proved="true">
  <proof prover="3"><result status="valid" time="0.019459" steps="63"/></proof>
  </goal>
@@ -26,10 +26,10 @@
  <proof prover="3"><result status="valid" time="0.030426" steps="141"/></proof>
  </goal>
  <goal name="assignment_na_def" proved="true">
- <proof prover="3"><result status="valid" time="0.019817" steps="63"/></proof>
+ <proof prover="3"><result status="valid" time="0.019817" steps="54"/></proof>
  </goal>
  <goal name="nok_not_ok" proved="true">
- <proof prover="3"><result status="valid" time="0.206694" steps="1685"/></proof>
+ <proof prover="3"><result status="valid" time="0.074380" steps="372"/></proof>
  </goal>
  <goal name="permut_all_forall" proved="true">
  <proof prover="3"><result status="valid" time="0.017595" steps="34"/></proof>
@@ -89,7 +89,7 @@
   <proof prover="3"><result status="valid" time="0.020853" steps="38"/></proof>
   </goal>
   <goal name="scan&#39;vc.9" expl="loop invariant preservation" proved="true">
-  <proof prover="3"><result status="valid" time="0.176726" steps="1695"/></proof>
+  <proof prover="3"><result status="valid" time="0.316989" steps="1667"/></proof>
   </goal>
   <goal name="scan&#39;vc.10" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.016966" steps="30"/></proof>
@@ -98,13 +98,13 @@
   <proof prover="3"><result status="valid" time="0.021008" steps="32"/></proof>
   </goal>
   <goal name="scan&#39;vc.12" expl="loop invariant preservation" proved="true">
-  <proof prover="3"><result status="valid" time="0.156740" steps="950"/></proof>
+  <proof prover="3"><result status="valid" time="0.156740" steps="905"/></proof>
   </goal>
   <goal name="scan&#39;vc.13" expl="loop invariant preservation" proved="true">
-  <proof prover="3"><result status="valid" time="0.040037" steps="275"/></proof>
+  <proof prover="3"><result status="valid" time="0.040037" steps="253"/></proof>
   </goal>
   <goal name="scan&#39;vc.14" expl="loop invariant preservation" proved="true">
-  <proof prover="3"><result status="valid" time="0.034200" steps="135"/></proof>
+  <proof prover="3"><result status="valid" time="0.034200" steps="136"/></proof>
   </goal>
   <goal name="scan&#39;vc.15" expl="index in array bounds" proved="true">
   <proof prover="3"><result status="valid" time="0.020937" steps="24"/></proof>
@@ -113,232 +113,233 @@
   <proof prover="3"><result status="valid" time="0.022009" steps="24"/></proof>
   </goal>
   <goal name="scan&#39;vc.17" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018213" steps="24"/></proof>
+  <proof prover="2"><result status="valid" time="0.015911" steps="24"/></proof>
   </goal>
   <goal name="scan&#39;vc.18" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.018788" steps="30"/></proof>
   </goal>
   <goal name="scan&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.023813" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.021461" steps="24"/></proof>
   </goal>
   <goal name="scan&#39;vc.20" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.019833" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.025637" steps="24"/></proof>
   </goal>
   <goal name="scan&#39;vc.21" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018741" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.103715" steps="24"/></proof>
   </goal>
   <goal name="scan&#39;vc.22" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021686" steps="32"/></proof>
+  <proof prover="3"><result status="valid" time="0.018880" steps="32"/></proof>
   </goal>
-  <goal name="scan&#39;vc.23" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018438" steps="32"/></proof>
-  </goal>
-  <goal name="scan&#39;vc.24" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.23" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.018577" steps="24"/></proof>
   </goal>
-  <goal name="scan&#39;vc.25" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.24" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.022435" steps="24"/></proof>
   </goal>
-  <goal name="scan&#39;vc.26" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.25" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.014702" steps="24"/></proof>
   </goal>
-  <goal name="scan&#39;vc.27" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.26" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.024617" steps="32"/></proof>
   </goal>
-  <goal name="scan&#39;vc.28" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.27" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.022756" steps="31"/></proof>
   </goal>
-  <goal name="scan&#39;vc.29" expl="loop invariant preservation" proved="true">
+  <goal name="scan&#39;vc.28" expl="loop invariant preservation" proved="true">
   <proof prover="3"><result status="valid" time="0.017453" steps="25"/></proof>
   </goal>
-  <goal name="scan&#39;vc.30" expl="postcondition" proved="true">
-  <proof prover="2"><result status="valid" time="0.015911" steps="15"/></proof>
+  <goal name="scan&#39;vc.29" expl="postcondition" proved="true">
+  <proof prover="3"><result status="valid" time="0.018213" steps="15"/></proof>
   </goal>
-  <goal name="scan&#39;vc.31" expl="postcondition" proved="true">
+  <goal name="scan&#39;vc.30" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.026234" steps="21"/></proof>
   </goal>
+  <goal name="scan&#39;vc.31" expl="postcondition" proved="true">
+  <proof prover="3"><result status="valid" time="0.023813" steps="46"/></proof>
+  </goal>
   <goal name="scan&#39;vc.32" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021461" steps="46"/></proof>
+  <proof prover="3"><result status="valid" time="0.719895" steps="4816"/></proof>
   </goal>
   <goal name="scan&#39;vc.33" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.673996" steps="6918"/></proof>
+  <proof prover="3"><result status="valid" time="0.018741" steps="17"/></proof>
   </goal>
   <goal name="scan&#39;vc.34" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.103715" steps="17"/></proof>
+  <proof prover="3"><result status="valid" time="0.018438" steps="17"/></proof>
   </goal>
-  <goal name="scan&#39;vc.35" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.022047" steps="17"/></proof>
-  </goal>
-  <goal name="scan&#39;vc.36" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.018880" steps="17"/></proof>
-  </goal>
-  <goal name="scan&#39;vc.37" expl="out of loop bounds" proved="true">
+  <goal name="scan&#39;vc.35" expl="out of loop bounds" proved="true">
   <proof prover="3"><result status="valid" time="0.018091" steps="6"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="remaining_arbitrary&#39;vc" expl="VC for remaining_arbitrary" proved="true">
- <proof prover="3"><result status="valid" time="0.721133" steps="4936"/></proof>
+ <proof prover="3"><result status="valid" time="0.479184" steps="3012"/></proof>
  </goal>
- <goal name="dpll&#39;vc" expl="VC for dpll">
- <transf name="split_vc" >
+ <goal name="dpll&#39;vc" expl="VC for dpll" proved="true">
+ <transf name="split_vc" proved="true" >
   <goal name="dpll&#39;vc.0" expl="precondition" proved="true">
   <proof prover="3"><result status="valid" time="0.015643" steps="4"/></proof>
   </goal>
   <goal name="dpll&#39;vc.1" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021321" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.021321" steps="23"/></proof>
   </goal>
   <goal name="dpll&#39;vc.2" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.024794" steps="22"/></proof>
+  <proof prover="3"><result status="valid" time="0.024794" steps="20"/></proof>
   </goal>
   <goal name="dpll&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021299" steps="29"/></proof>
+  <proof prover="3"><result status="valid" time="0.021299" steps="27"/></proof>
   </goal>
   <goal name="dpll&#39;vc.4" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.016699" steps="29"/></proof>
+  <proof prover="3"><result status="valid" time="0.021253" steps="27"/></proof>
   </goal>
   <goal name="dpll&#39;vc.5" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.127421" steps="804"/></proof>
+  <proof prover="3"><result status="valid" time="0.127421" steps="552"/></proof>
   </goal>
   <goal name="dpll&#39;vc.6" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.019509" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.019509" steps="22"/></proof>
   </goal>
   <goal name="dpll&#39;vc.7" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.128013" steps="24"/></proof>
+  <transf name="assert" proved="true" arg1="((exists i:int. (0 &lt;= i /\ i &lt; cl.length) /\ nok_cls mm na cl[i]))">
+   <goal name="dpll&#39;vc.7.0" expl="asserted formula" proved="true">
+   <proof prover="3"><result status="valid" time="0.018946" steps="22"/></proof>
+   </goal>
+   <goal name="dpll&#39;vc.7.1" expl="postcondition" proved="true">
+   <proof prover="3"><result status="valid" time="0.027304" steps="22"/></proof>
+   </goal>
+  </transf>
   </goal>
   <goal name="dpll&#39;vc.8" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.013913" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.019277" steps="22"/></proof>
   </goal>
   <goal name="dpll&#39;vc.9" expl="index in array bounds" proved="true">
-  <proof prover="3"><result status="valid" time="0.023026" steps="56"/></proof>
+  <proof prover="3"><result status="valid" time="0.023026" steps="55"/></proof>
   </goal>
   <goal name="dpll&#39;vc.10" expl="variant decrease" proved="true">
-  <proof prover="3"><result status="valid" time="0.024773" steps="24"/></proof>
+  <proof prover="3"><result status="valid" time="0.024773" steps="22"/></proof>
   </goal>
   <goal name="dpll&#39;vc.11" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.294255" steps="1943"/></proof>
+  <proof prover="3"><result status="valid" time="0.294255" steps="1217"/></proof>
   </goal>
   <goal name="dpll&#39;vc.12" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.017638" steps="28"/></proof>
+  <proof prover="3"><result status="valid" time="0.017638" steps="26"/></proof>
   </goal>
   <goal name="dpll&#39;vc.13" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.019871" steps="34"/></proof>
+  <proof prover="3"><result status="valid" time="0.019871" steps="32"/></proof>
   </goal>
   <goal name="dpll&#39;vc.14" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.055851" steps="142"/></proof>
+  <proof prover="3"><result status="valid" time="0.055851" steps="143"/></proof>
   </goal>
   <goal name="dpll&#39;vc.15" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.045519" steps="102"/></proof>
+  <proof prover="3"><result status="valid" time="0.045519" steps="243"/></proof>
   </goal>
   <goal name="dpll&#39;vc.16" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.444575" steps="3604"/></proof>
+  <proof prover="3"><result status="valid" time="0.358786" steps="1815"/></proof>
   </goal>
   <goal name="dpll&#39;vc.17" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.028089" steps="37"/></proof>
+  <proof prover="3"><result status="valid" time="0.028089" steps="35"/></proof>
   </goal>
   <goal name="dpll&#39;vc.18" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.019567" steps="37"/></proof>
+  <proof prover="3"><result status="valid" time="0.019567" steps="35"/></proof>
   </goal>
   <goal name="dpll&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.030249" steps="104"/></proof>
+  <proof prover="3"><result status="valid" time="0.030249" steps="99"/></proof>
   </goal>
   <goal name="dpll&#39;vc.20" expl="index in array bounds" proved="true">
-  <proof prover="3"><result status="valid" time="0.040078" steps="108"/></proof>
+  <proof prover="3"><result status="valid" time="0.040078" steps="106"/></proof>
   </goal>
   <goal name="dpll&#39;vc.21" expl="variant decrease" proved="true">
-  <proof prover="3"><result status="valid" time="0.030530" steps="42"/></proof>
+  <proof prover="3"><result status="valid" time="0.030530" steps="40"/></proof>
   </goal>
   <goal name="dpll&#39;vc.22" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="5.288217" steps="32257"/></proof>
+  <proof prover="3"><result status="valid" time="4.274353" steps="18698"/></proof>
   </goal>
   <goal name="dpll&#39;vc.23" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.025876" steps="46"/></proof>
+  <proof prover="3"><result status="valid" time="0.025876" steps="44"/></proof>
   </goal>
   <goal name="dpll&#39;vc.24" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.093985" steps="50"/></proof>
+  <proof prover="3"><result status="valid" time="0.093985" steps="48"/></proof>
   </goal>
   <goal name="dpll&#39;vc.25" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.106296" steps="703"/></proof>
+  <proof prover="3"><result status="valid" time="0.106296" steps="661"/></proof>
   </goal>
   <goal name="dpll&#39;vc.26" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.055845" steps="184"/></proof>
+  <proof prover="3"><result status="valid" time="0.055845" steps="559"/></proof>
   </goal>
   <goal name="dpll&#39;vc.27" expl="postcondition" proved="true">
   <transf name="compute_hyp" proved="true" >
    <goal name="dpll&#39;vc.27.0" expl="postcondition" proved="true">
    <transf name="split_vc" proved="true" >
     <goal name="dpll&#39;vc.27.0.0" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.052700" steps="169"/></proof>
+    <proof prover="3"><result status="valid" time="0.052700" steps="164"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.1" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.029579" steps="51"/></proof>
+    <proof prover="3"><result status="valid" time="0.029579" steps="49"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.2" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.052216" steps="172"/></proof>
+    <proof prover="3"><result status="valid" time="0.052216" steps="167"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.3" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.218540" steps="2635"/></proof>
+    <proof prover="3"><result status="valid" time="0.499875" steps="2343"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.4" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="1.152707" steps="8422"/></proof>
+    <proof prover="3"><result status="valid" time="1.152707" steps="6495"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.5" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.202903" steps="1280"/></proof>
+    <proof prover="3"><result status="valid" time="0.189134" steps="1080"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.6" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.195888" steps="1280"/></proof>
+    <proof prover="3"><result status="valid" time="0.195888" steps="1080"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.7" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.189134" steps="1280"/></proof>
+    <proof prover="3"><result status="valid" time="0.202903" steps="1080"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.8" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.029066" steps="51"/></proof>
+    <proof prover="3"><result status="valid" time="0.029066" steps="71"/></proof>
     </goal>
     <goal name="dpll&#39;vc.27.0.9" expl="postcondition" proved="true">
-    <proof prover="3"><result status="valid" time="0.034606" steps="73"/></proof>
+    <proof prover="3"><result status="valid" time="0.034606" steps="71"/></proof>
     </goal>
    </transf>
    </goal>
   </transf>
   </goal>
   <goal name="dpll&#39;vc.28" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.027789" steps="55"/></proof>
+  <proof prover="3"><result status="valid" time="0.027789" steps="53"/></proof>
   </goal>
-  <goal name="dpll&#39;vc.29" expl="postcondition">
-  <transf name="assert" arg1="(na &lt; length mm)">
+  <goal name="dpll&#39;vc.29" expl="postcondition" proved="true">
+  <transf name="assert" proved="true" arg1="(na &lt; length mm)">
    <goal name="dpll&#39;vc.29.0" expl="asserted formula" proved="true">
-   <proof prover="3"><result status="valid" time="0.023351" steps="57"/></proof>
+   <proof prover="3"><result status="valid" time="0.023351" steps="55"/></proof>
    </goal>
-   <goal name="dpll&#39;vc.29.1" expl="postcondition">
-   <transf name="assert" arg1="(extends mm[na &lt;- na] (na + 1) mm&#39; \/ extends mm[na &lt;- (- na)] (na + 1) mm&#39;)">
+   <goal name="dpll&#39;vc.29.1" expl="postcondition" proved="true">
+   <transf name="assert" proved="true" arg1="(extends mm[na &lt;- na] (na + 1) mm&#39; \/ extends mm[na &lt;- (- na)] (na + 1) mm&#39;)">
     <goal name="dpll&#39;vc.29.1.0" expl="asserted formula" proved="true">
-    <proof prover="3"><result status="valid" time="3.287338" steps="19547"/></proof>
+    <proof prover="3"><result status="valid" time="5.739480" steps="28524"/></proof>
     </goal>
-    <goal name="dpll&#39;vc.29.1.1" expl="postcondition">
-    <transf name="destruct" arg1="h">
-     <goal name="dpll&#39;vc.29.1.1.0" expl="postcondition">
-     <transf name="instantiate" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (length mm&#39;))">
-      <goal name="dpll&#39;vc.29.1.1.0.0" expl="postcondition">
-      <transf name="apply" arg1="Ensures6">
-       <goal name="dpll&#39;vc.29.1.1.0.0.0" expl="apply premises" proved="true">
-       <proof prover="3"><result status="valid" time="0.026780" steps="59"/></proof>
+    <goal name="dpll&#39;vc.29.1.1" expl="postcondition" proved="true">
+    <transf name="destruct" proved="true" arg1="h">
+     <goal name="dpll&#39;vc.29.1.1.0" expl="postcondition" proved="true">
+     <transf name="instantiate" proved="true" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (length mm&#39;))">
+      <goal name="dpll&#39;vc.29.1.1.0.0" expl="postcondition" proved="true">
+      <transf name="assert" proved="true" arg1="(extends mm2 (na + 1) mm&#39;)">
+       <goal name="dpll&#39;vc.29.1.1.0.0.0" expl="asserted formula" proved="true">
+       <proof prover="3"><result status="valid" time="0.591226" steps="2492"/></proof>
        </goal>
-       <goal name="dpll&#39;vc.29.1.1.0.0.1" expl="apply premises">
-       <proof prover="3"><result status="timeout" time="5.000000" steps="23785"/></proof>
+       <goal name="dpll&#39;vc.29.1.1.0.0.1" expl="postcondition" proved="true">
+       <proof prover="3"><result status="valid" time="0.142201" steps="414"/></proof>
        </goal>
       </transf>
       </goal>
      </transf>
      </goal>
-     <goal name="dpll&#39;vc.29.1.1.1" expl="postcondition">
-     <transf name="instantiate" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (mm&#39;.length))">
-      <goal name="dpll&#39;vc.29.1.1.1.0" expl="postcondition">
-      <transf name="assert" arg1="(extends mm2 (na + 1) mm&#39;)">
-       <goal name="dpll&#39;vc.29.1.1.1.0.0" expl="asserted formula">
-       <proof prover="3"><result status="timeout" time="5.000000" steps="21480"/></proof>
+     <goal name="dpll&#39;vc.29.1.1.1" expl="postcondition" proved="true">
+     <transf name="instantiate" proved="true" arg1="permut_all_prop_exists" arg2="cl1,cl,(nok_cls mm&#39; (mm&#39;.length))">
+      <goal name="dpll&#39;vc.29.1.1.1.0" expl="postcondition" proved="true">
+      <transf name="apply" proved="true" arg1="Ensures6">
+       <goal name="dpll&#39;vc.29.1.1.1.0.0" expl="apply premises" proved="true">
+       <proof prover="3"><result status="valid" time="0.036234" steps="57"/></proof>
        </goal>
-       <goal name="dpll&#39;vc.29.1.1.1.0.1" expl="postcondition" proved="true">
-       <proof prover="3"><result status="valid" time="0.063490" steps="410"/></proof>
+       <goal name="dpll&#39;vc.29.1.1.1.0.1" expl="apply premises" proved="true">
+       <proof prover="3"><result status="valid" time="0.224854" steps="1004"/></proof>
        </goal>
       </transf>
       </goal>
@@ -351,40 +352,33 @@
   </transf>
   </goal>
   <goal name="dpll&#39;vc.30" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.033659" steps="183"/></proof>
+  <proof prover="3"><result status="valid" time="0.033659" steps="178"/></proof>
   </goal>
   <goal name="dpll&#39;vc.31" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.017422" steps="16"/></proof>
+  <proof prover="3"><result status="valid" time="0.015678" steps="14"/></proof>
   </goal>
   <goal name="dpll&#39;vc.32" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.015678" steps="20"/></proof>
+  <proof prover="3"><result status="valid" time="0.017422" steps="18"/></proof>
   </goal>
   <goal name="dpll&#39;vc.33" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021253" steps="22"/></proof>
+  <proof prover="3"><result status="valid" time="0.016699" steps="20"/></proof>
   </goal>
   <goal name="dpll&#39;vc.34" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.030165" steps="129"/></proof>
+  <proof prover="3"><result status="valid" time="0.030165" steps="237"/></proof>
   </goal>
   <goal name="dpll&#39;vc.35" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.013913" steps="18"/></proof>
+  <proof prover="3"><result status="valid" time="0.013913" steps="16"/></proof>
   </goal>
   <goal name="dpll&#39;vc.36" expl="postcondition" proved="true">
-  <transf name="assert" proved="true" arg1="((exists i:int. (0 &lt;= i /\ i &lt; cl.length) /\ nok_cls mm na cl[i]))">
-   <goal name="dpll&#39;vc.36.0" expl="asserted formula" proved="true">
-   <proof prover="3"><result status="valid" time="0.018946" steps="63"/></proof>
-   </goal>
-   <goal name="dpll&#39;vc.36.1" expl="postcondition" proved="true">
-   <proof prover="3"><result status="valid" time="0.213412" steps="2273"/></proof>
-   </goal>
-  </transf>
+  <proof prover="3"><result status="valid" time="0.128013" steps="806"/></proof>
   </goal>
   <goal name="dpll&#39;vc.37" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.019277" steps="18"/></proof>
+  <proof prover="3"><result status="valid" time="0.013913" steps="16"/></proof>
   </goal>
  </transf>
  </goal>
  <goal name="sat&#39;vc" expl="VC for sat" proved="true">
- <proof prover="3"><result status="valid" time="0.299274" steps="2590"/></proof>
+ <proof prover="3"><result status="valid" time="1.032613" steps="5432"/></proof>
  </goal>
 </theory>
 </file>

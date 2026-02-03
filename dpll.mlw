@@ -79,17 +79,8 @@ predicate inactive_ok (mm: assignment) (na: int) (cl: array cls) (nc: int) =
 predicate active_undef (mm: assignment) (na: int) (cl: array cls) (nc: int) =
   forall i . 0 <= i < nc -> undef_cls mm na cl[i]
 
-predicate valid_lit (mm: assignment) (l : lit) =
-  abs l < length mm
-
-predicate valid_clause (mm: assignment) (c : cls) =
-  let l1, l2, l3 = c in
-  valid_lit mm l1 /\
-  valid_lit mm l2 /\
-  valid_lit mm l3
-
 predicate valid_clauses (mm: assignment) (cl: array cls) =
-  forall i . 0 <= i < length cl -> valid_clause mm cl[i]
+  forall i . 0 <= i < length cl -> is_cls (length mm) cl[i]
 
 predicate valid_state (mm: assignment) (na: int) (cl: array cls) (nc: int) =
   is_assignment mm na /\ inactive_ok mm na cl nc /\ valid_clauses mm cl /\ 0 <= nc <= length cl
@@ -122,7 +113,7 @@ let is_false_cls (mm : assignment) (na: int) (c : cls): bool =
   is_false mm na l2 && 
   is_false mm na l3
 
-lemma assignment_na_def : forall mm na . is_assignment mm na -> na = length mm -> forall l . valid_lit mm l -> def_lit mm na l
+lemma assignment_na_def : forall mm na . is_assignment mm na -> forall l . is_lit na l -> def_lit mm na l
 
 lemma nok_not_ok : forall mm na c . is_assignment mm na -> nok_cls mm na c -> not (ok_cls mm na c)
 
@@ -130,7 +121,7 @@ lemma permut_all_forall : forall a1:array cls . forall a2:array cls . forall p .
                        (forall i . 0 <= i < length a1 -> p a1[i]) ->
                        (forall i . 0 <= i < length a2 -> p a2[i])
 
-lemma permut_all_prop_exists : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 
+lemma permut_all_exists : forall a1:array cls . forall a2:array cls . forall p . permut_all a1 a2 -> 
                        (exists i . 0 <= i < length a1 /\ p a1[i]) ->
                        (exists i . 0 <= i < length a2 /\ p a2[i])
 
@@ -156,7 +147,6 @@ let scan (mm: assignment) (cl: array cls) (na nc: int) : (b: bool , mc: int)
   ensures {b = true -> active_undef mm na cl mc}
   ensures {b = true -> 0 < mc -> na < length mm}
   ensures {b = false -> exists i . 0 <= i < length cl /\ nok_cls mm na cl[i] }
-  ensures {mc <= nc}
   ensures {permut_all (old(cl)) cl}
   let ref cc = nc in
   for i = nc - 1 downto 0 do
