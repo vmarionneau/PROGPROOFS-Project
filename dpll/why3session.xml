@@ -363,18 +363,6 @@
   <goal name="dpll&#39;vc.33" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.013913" steps="16"/></proof>
   </goal>
-  <goal name="dpll&#39;vc.31" expl="postcondition">
-  <proof prover="3"><result status="valid" time="0.015678" steps="14"/></proof>
-  </goal>
-  <goal name="dpll&#39;vc.24" expl="postcondition">
-  <proof prover="3"><result status="valid" time="0.093985" steps="48"/></proof>
-  </goal>
-  <goal name="dpll&#39;vc.13" expl="postcondition">
-  <proof prover="3"><result status="valid" time="0.019871" steps="32"/></proof>
-  </goal>
-  <goal name="dpll&#39;vc.2" expl="postcondition">
-  <proof prover="3"><result status="valid" time="0.024794" steps="20"/></proof>
-  </goal>
  </transf>
  </goal>
  <goal name="sat&#39;vc" expl="VC for sat" proved="true">
