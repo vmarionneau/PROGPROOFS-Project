@@ -186,7 +186,7 @@
   <proof prover="3"><result status="valid" time="0.021299" steps="25"/></proof>
   </goal>
   <goal name="dpll&#39;vc.3" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.016699" steps="25"/></proof>
+  <proof prover="3"><result status="valid" time="0.021253" steps="25"/></proof>
   </goal>
   <goal name="dpll&#39;vc.4" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.019509" steps="18"/></proof>
@@ -211,13 +211,13 @@
   <proof prover="3"><result status="valid" time="0.024773" steps="22"/></proof>
   </goal>
   <goal name="dpll&#39;vc.9" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.161544" steps="1214"/></proof>
+  <proof prover="3"><result status="valid" time="0.278797" steps="1214"/></proof>
   </goal>
   <goal name="dpll&#39;vc.10" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.055851" steps="129"/></proof>
   </goal>
   <goal name="dpll&#39;vc.11" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.045519" steps="220"/></proof>
+  <proof prover="3"><result status="valid" time="0.120646" steps="220"/></proof>
   </goal>
   <goal name="dpll&#39;vc.12" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.028089" steps="28"/></proof>
@@ -235,13 +235,13 @@
   <proof prover="3"><result status="valid" time="0.030530" steps="38"/></proof>
   </goal>
   <goal name="dpll&#39;vc.17" expl="precondition" proved="true">
-  <proof prover="3"><result status="valid" time="1.736718" steps="10945"/></proof>
+  <proof prover="3"><result status="valid" time="2.371447" steps="10945"/></proof>
   </goal>
   <goal name="dpll&#39;vc.18" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.106296" steps="460"/></proof>
   </goal>
   <goal name="dpll&#39;vc.19" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.055845" steps="392"/></proof>
+  <proof prover="3"><result status="valid" time="0.158154" steps="392"/></proof>
   </goal>
   <goal name="dpll&#39;vc.20" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.027789" steps="44"/></proof>
@@ -254,33 +254,26 @@
    <goal name="dpll&#39;vc.21.1" expl="postcondition" proved="true">
    <transf name="assert" proved="true" arg1="(extends mm[na &lt;- na] (na + 1) mm&#39; \/ extends mm[na &lt;- (- na)] (na + 1) mm&#39;)">
     <goal name="dpll&#39;vc.21.1.0" expl="asserted formula" proved="true">
-    <proof prover="3"><result status="valid" time="2.940704" steps="26304"/></proof>
+    <proof prover="3"><result status="valid" time="3.707107" steps="26304"/></proof>
     </goal>
     <goal name="dpll&#39;vc.21.1.1" expl="postcondition" proved="true">
     <transf name="destruct" proved="true" arg1="h">
      <goal name="dpll&#39;vc.21.1.1.0" expl="postcondition" proved="true">
-     <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl1,cl,(nok_cls mm&#39; (mm&#39;.length))">
-      <goal name="dpll&#39;vc.21.1.1.0.0" expl="postcondition" proved="true">
-      <transf name="assert" proved="true" arg1="(extends mm2 (na + 1) mm&#39;)">
-       <goal name="dpll&#39;vc.21.1.1.0.0.0" expl="asserted formula" proved="true">
-       <proof prover="3"><result status="valid" time="4.681342" steps="19981"/></proof>
-       </goal>
-       <goal name="dpll&#39;vc.21.1.1.0.0.1" expl="postcondition" proved="true">
-       <proof prover="3"><result status="valid" time="0.059219" steps="356"/></proof>
+     <transf name="assert" proved="true" arg1="(extends mm2 (na + 1) mm&#39;)">
+      <goal name="dpll&#39;vc.21.1.1.0.0" expl="asserted formula" proved="true">
+      <proof prover="3"><result status="valid" time="0.829090" steps="3664"/></proof>
+      </goal>
+      <goal name="dpll&#39;vc.21.1.1.0.1" expl="postcondition" proved="true">
+      <transf name="instantiate" proved="true" arg1="permut_all_exists" arg2="cl1,cl,(nok_cls mm&#39; mm&#39;.length)">
+       <goal name="dpll&#39;vc.21.1.1.0.1.0" expl="postcondition" proved="true">
+       <proof prover="3"><result status="valid" time="0.153730" steps="356"/></proof>
        </goal>
       </transf>
       </goal>
      </transf>
      </goal>
      <goal name="dpll&#39;vc.21.1.1.1" expl="postcondition" proved="true">
-     <transf name="apply" proved="true" arg1="Ensures4">
-      <goal name="dpll&#39;vc.21.1.1.1.0" expl="apply premises" proved="true">
-      <proof prover="3"><result status="valid" time="0.022315" steps="48"/></proof>
-      </goal>
-      <goal name="dpll&#39;vc.21.1.1.1.1" expl="apply premises" proved="true">
-      <proof prover="3"><result status="valid" time="0.130948" steps="1164"/></proof>
-      </goal>
-     </transf>
+     <proof prover="3"><result status="valid" time="0.635192" steps="3524"/></proof>
      </goal>
     </transf>
     </goal>
@@ -295,7 +288,7 @@
   <proof prover="3"><result status="valid" time="0.017422" steps="16"/></proof>
   </goal>
   <goal name="dpll&#39;vc.24" expl="postcondition" proved="true">
-  <proof prover="3"><result status="valid" time="0.021253" steps="18"/></proof>
+  <proof prover="3"><result status="valid" time="0.016699" steps="18"/></proof>
   </goal>
   <goal name="dpll&#39;vc.25" expl="postcondition" proved="true">
   <proof prover="3"><result status="valid" time="0.013913" steps="12"/></proof>
