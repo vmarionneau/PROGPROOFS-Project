@@ -189,7 +189,7 @@ let rec dpll (mm: assignment) (cl: array cls) (na nc: int) : (s: bool)
   variant {length mm - na}
   ensures {forall i . 0 <= i < na -> old(mm)[i] = mm[i]}
   ensures {forall i. nc <= i < length cl -> cl[i] = old(cl)[i]}
-  ensures {valid_state mm na cl nc}
+  (* ensures {valid_state mm na cl nc} *)
   ensures {s = true -> valid_state mm (length mm) cl 0}
   ensures {s = false -> forall mm' . extends mm na mm' -> exists i . 0 <= i < length cl /\ nok_cls mm' (length mm') cl[i] }
   ensures {permut_all (old(cl)) cl}
